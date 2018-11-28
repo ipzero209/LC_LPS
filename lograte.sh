@@ -17,7 +17,7 @@ function get_samplesv2(){
 	while [ $COUNTER -lt $1 ]; do
 		snmpget -v 2c -c $snmp_read $lc_IP .1.3.6.1.4.1.25461.2.3.30.1.1.0 >> lps.sample
 		COUNTER=$[$COUNTER +1]
-		sleep 10
+		sleep 300
 	done
 }
 
@@ -35,7 +35,7 @@ function get_samplesv3(){
 	while [ $COUNTER -lt $1 ]; do
 		snmpget -v3 -Pu -a SHA -A $snmp_auth -l authPriv -u $snmp_user -x AES -X $snmp_priv $lc_IP .1.3.6.1.4.1.25461.2.3.30.1.1.0 >> lps.sample
 		COUNTER=$[$COUNTER +1]
-		sleep 10
+		sleep 300
 	done
 }
 
@@ -45,7 +45,7 @@ function get_samplesv3(){
 echo "Enter IP address of the log collector. This can be an M-series in mixed mode or a dedicated log collector: "
 read lc_IP
 
-echo "Enter number of samples. Samples are taken every 10 seconds. For example, a 1 hour sample is 3600/10, or 360 samples: "
+echo "Enter number of samples. Samples are taken every 5 minutes. For example, 1 day worth of samples will be 1140min/5min = 288 samples: "
 read num_of_samples
 
 echo "Enter SNMP version (2 or 3): "
